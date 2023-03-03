@@ -23,7 +23,7 @@ public class ApplicantController {
 	ApplicantService applicantService;
 	
 	@PostMapping("/save")
-	public ResponseEntity<?> candidateRegistration(@RequestBody ApplicantModel applicantModel)
+	public ResponseEntity<?> candidateRegistration(@RequestBody ApplicantModel applicantModel) throws Exception
 	{
 		return applicantService.saveApplicant(applicantModel);
 	}
@@ -47,6 +47,20 @@ public class ApplicantController {
 		return new ResponseEntity<List<ApplicantModel>>(applicantService.deptwisedata(department),HttpStatus.OK);
 	}
 	
+	@PostMapping("/applicantlogin")
+	public ResponseEntity<?> applicantLogin(@RequestBody ApplicantModel applicantModel)
+	{
+		System.out.println(applicantModel.getApplicantEmail());
+		ApplicantModel respoApplicantModel=applicantService.findByEmailId(applicantModel.getApplicantEmail());
+		if(respoApplicantModel.getApplicantPassword().equals(applicantModel.getApplicantPassword()))
+		{
+			return new ResponseEntity<ApplicantModel>(respoApplicantModel,HttpStatus.OK);
+		}
+		else
+		{
+			return new ResponseEntity<String>("user not found",HttpStatus.NOT_FOUND);
+		}
+	}
 
 	
 

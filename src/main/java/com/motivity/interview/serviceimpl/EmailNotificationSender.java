@@ -19,7 +19,7 @@ public class EmailNotificationSender {
             MimeMessageHelper message=new MimeMessageHelper(mail);
             html=true;
             
-            message.setFrom("motivityhospital@gmail.com","MLHR-TEAM");
+            message.setFrom("motivityhospital@gmail.com","MLI-INTERVIEWPANEL");
             message.setTo(to);
             message.setSubject(subject);
             message.setText(text,html);

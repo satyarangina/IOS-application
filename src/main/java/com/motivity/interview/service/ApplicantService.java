@@ -8,7 +8,7 @@ import com.motivity.interview.modeldto.DepartmentWiseCount;
 
 public interface ApplicantService 
 {
-	public ResponseEntity<?> saveApplicant(ApplicantModel applicantModel);
+	public ResponseEntity<?> saveApplicant(ApplicantModel applicantModel) throws Exception;
 	public ApplicantModel findByEmailId(String email);
 	public List<DepartmentWiseCount> countOfDepartmentWise();
 	public List<ApplicantModel> deptwisedata(String ddepartment);

@@ -38,31 +38,30 @@ public class ApplicantServiceimplement implements ApplicantService
 	}
 
 	@Override
-	public ResponseEntity<?> saveApplicant(ApplicantModel applicantModel){
+	public ResponseEntity<?> saveApplicant(ApplicantModel applicantModel) throws Exception{
 		ApplicantModel model  = applicantRepository.findBYEmail(applicantModel.getApplicantEmail());
 		System.out.println("applicant model......");
 		
 		if(model!=null)
 		{
 			System.out.println("model attribute is not null");
-			if(model.getApplicantEmail().equalsIgnoreCase(applicantModel.getApplicantEmail()))
+			if(model.getApplicantEmail().equalsIgnoreCase(applicantModel.getApplicantEmail())|| model.getApplicantMobileNumber().equals(applicantModel.getApplicantMobileNumber()))
 			{
+				System.out.println(model.getApplicantEmail());
 				System.out.println("email checks");
 				return new  ResponseEntity<String>("you already registered plz verify your account by username : "+model.getApplicantEmail(),HttpStatus.OK);
 			}
-			else
-			{
-				System.out.println("not a duplicate entry but its not work............................");
-				return new  ResponseEntity<String>("you already registered plz verify your account by username : "+model.getApplicantEmail(),HttpStatus.OK);
-				
+			else {
+				throw  new Exception("here");
 			}
+			
 		}
 		else {
 			ApplicantModel saveddata = applicantRepository.save(applicantModel);
 			
-			String text = "hi "+saveddata.getApplicantFirstName()+" you are not submited your B.Tech certifications to motivitylabs. please submit your certificates as soon as possible. For any queries feel free to reach us. ";
+			String text = "hi "+saveddata.getApplicantFirstName()+" your motivity labs job application has been approved";
 			String to  = saveddata.getApplicantEmail();
-			String subject = "final warning to cirtificate submission";
+			String subject = "Application Submitted";
 			emailNotificationSender.mailSender(to, subject, text);
 			
 			return new ResponseEntity<ApplicantModel>(saveddata,HttpStatus.OK);

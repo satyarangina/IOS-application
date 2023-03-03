@@ -1,11 +1,13 @@
 package com.motivity.interview.serviceimpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.motivity.interview.model.Manager;
 import com.motivity.interview.repository.ManagerRepository;
 import com.motivity.interview.service.ManagerService;
 
+@Service
 public class ManagerServiceImpl implements ManagerService{
 	
 	@Autowired
